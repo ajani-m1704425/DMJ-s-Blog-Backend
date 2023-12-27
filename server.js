@@ -1,16 +1,28 @@
 const express = require('express');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const passport = require('passport');
+const session = require('express-session');
+const GooglePassportStrategy = require("./Controller/GoogleUserController");
+const facebookPassportStrategy = require("./Controller/FacebookUserController")
 
 const userRoute = require('./Routes/UserRoute');
+
 
 const app = express();
 
 //Middleware
 app.use(express.json());
+app.use(session({ secret: process.env.SESSION, resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
 
 // route
-app.use('/api/user', userRoute);
+// Set up Google OAuth routes
+app.use(userRoute);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(

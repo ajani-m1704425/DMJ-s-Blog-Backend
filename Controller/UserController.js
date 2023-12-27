@@ -1,4 +1,5 @@
 const User = require('../Model/UserModel');
+const GoogleUser = require("../Model/GoogleUserModel")
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -32,4 +33,26 @@ const loginUser = async  (req, res) => {
 
 }
 
-module.exports = {loginUser,signupUser}
+const successLogin = async (req, res) => {
+    console.log(req)
+    if (req.user) {
+        try {
+            const user = await GoogleUser.findOne({ googleId: req.user })
+            if (!user) {
+                throw Error("User does not exist");
+            }
+            const token = createToken(req.user);
+            res.status(200).json({
+                user,
+                token
+            })
+        }catch (error) {
+        res.status(400).json({error: error.message})
+    }
+    }
+    else {
+		res.status(403).json({ error: true, message: "Not Authorized" });
+	}
+	} 
+
+module.exports = {loginUser,signupUser,successLogin}

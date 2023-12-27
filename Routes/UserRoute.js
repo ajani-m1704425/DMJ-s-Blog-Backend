@@ -1,10 +1,42 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
-const { signupUser, loginUser } = require('../Controller/UserController');
+const { signupUser, loginUser, successLogin } = require('../Controller/UserController');
 
-router.post('/signup', signupUser);
 
-router.post('/login', loginUser);
+
+router.post('/api/user/signup', signupUser);
+
+router.post('/api/user/login', loginUser);
+
+router.get("/login/success", successLogin);
+
+router.get("/login/failed", (req, res) => {
+	res.status(401).json({
+		error: true,
+		message: "Log in failure",
+	});
+});
+
+router.get('/api/user/auth/facebook',
+  passport.authenticate('facebook', { scope: ['profile','email'] }));
+
+router.get('/api/user/auth/facebook/callback',
+  passport.authenticate('facebook', {
+  successRedirect: '/login/success',
+  failureRedirect: '/login/failed'
+  })
+);
+
+
+router.get('/api/user/auth/google', passport.authenticate('google', { scope: ['profile','email'] }));
+
+router.get('/api/user/auth/google/callback',
+    passport.authenticate("google", {
+		successRedirect: "/login/success",
+		failureRedirect: "/login/failed",
+	})
+ );
 
 module.exports = router;
