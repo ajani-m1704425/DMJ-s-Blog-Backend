@@ -1,5 +1,6 @@
 const User = require('../Model/UserModel');
 const GoogleUser = require("../Model/GoogleUserModel")
+const TwitterUser = require("../Model/TwitterUserModel")
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -37,15 +38,27 @@ const successLogin = async (req, res) => {
     console.log(req)
     if (req.user) {
         try {
-            const user = await GoogleUser.findOne({ googleId: req.user })
-            if (!user) {
+            const Guser = await GoogleUser.findOne({ googleId: req.user })
+            const Tuser = await TwitterUser.findOne({ twitterId: req.user })
+
+            if (!Guser & !Tuser) {
                 throw Error("User does not exist");
             }
+
             const token = createToken(req.user);
-            res.status(200).json({
-                user,
+            if (Guser) {
+                res.status(200).json({
+                Guser,
                 token
             })
+            }
+             if (Tuser) {
+                res.status(200).json({
+                Tuser,
+                token
+            })
+            }
+            
         }catch (error) {
         res.status(400).json({error: error.message})
     }

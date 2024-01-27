@@ -4,7 +4,7 @@ require('dotenv').config();
 const passport = require('passport');
 const session = require('express-session');
 const GooglePassportStrategy = require("./Controller/GoogleUserController");
-const facebookPassportStrategy = require("./Controller/FacebookUserController")
+const TwitterPassportStrategy = require("./Controller/TwitterUserController")
 
 const userRoute = require('./Routes/UserRoute');
 

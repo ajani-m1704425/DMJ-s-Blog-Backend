@@ -19,11 +19,11 @@ router.get("/login/failed", (req, res) => {
 	});
 });
 
-router.get('/api/user/auth/facebook',
-  passport.authenticate('facebook', { scope: ['profile','email'] }));
+router.get('/api/user/auth/twitter',
+  passport.authenticate('twitter', { scope: ['profile'] }));
 
-router.get('/api/user/auth/facebook/callback',
-  passport.authenticate('facebook', {
+router.get('/api/user/auth/twitter/callback',
+  passport.authenticate('twitter', {
   successRedirect: '/login/success',
   failureRedirect: '/login/failed'
   })
