@@ -5,6 +5,7 @@ const passport = require('passport');
 const session = require('express-session');
 const GooglePassportStrategy = require("./Controller/GoogleUserController");
 const TwitterPassportStrategy = require("./Controller/TwitterUserController")
+const cors = require('cors');
 
 const userRoute = require('./Routes/UserRoute');
 
@@ -12,6 +13,7 @@ const userRoute = require('./Routes/UserRoute');
 const app = express();
 
 //Middleware
+app.use(cors());
 app.use(express.json());
 app.use(session({ secret: process.env.SESSION, resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
