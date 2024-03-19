@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const cors = require('cors');
 
 const { signupUser, loginUser, successLogin } = require('../Controller/UserController');
 
-
+router.use(cors());
 
 router.post('/api/user/signup', signupUser);
 

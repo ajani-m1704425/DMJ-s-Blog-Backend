@@ -13,7 +13,6 @@ const userRoute = require('./Routes/UserRoute');
 const app = express();
 
 //Middleware
-app.use(cors());
 app.use(express.json());
 app.use(session({ secret: process.env.SESSION, resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
@@ -24,6 +23,7 @@ app.use(passport.session());
 
 // route
 // Set up Google OAuth routes
+app.use(cors());
 app.use(userRoute);
 
 mongoose.connect(process.env.MONGO_URI)

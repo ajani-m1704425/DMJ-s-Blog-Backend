@@ -35,7 +35,7 @@ const loginUser = async  (req, res) => {
 }
 
 const successLogin = async (req, res) => {
-    console.log(req)
+      
     if (req.user) {
         try {
             const Guser = await GoogleUser.findOne({ googleId: req.user })
@@ -52,11 +52,13 @@ const successLogin = async (req, res) => {
                 token
             })
             }
-             if (Tuser) {
-                res.status(200).json({
-                Tuser,
-                token
-            })
+            if (Tuser) {
+                const origin = "http://localhost:3000";
+                // Set CORS headers dynamically based on the request's origin
+                res.header('Access-Control-Allow-Origin', origin);
+                // Send a JSON response with the redirect URL
+                res.status(200)
+                res.redirect(`${origin}?user=${encodeURIComponent(JSON.stringify({Tuser,token}))}`);
             }
             
         }catch (error) {
