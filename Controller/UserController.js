@@ -47,10 +47,12 @@ const successLogin = async (req, res) => {
 
             const token = createToken(req.user);
             if (Guser) {
-                res.status(200).json({
-                Guser,
-                token
-            })
+                const origin = "http://localhost:3000";
+                // Set CORS headers dynamically based on the request's origin
+                res.header('Access-Control-Allow-Origin', origin);
+                // Send a JSON response with the redirect URL
+                res.status(200)
+                res.redirect(`${origin}?user=${encodeURIComponent(JSON.stringify({Guser,token}))}`);
             }
             if (Tuser) {
                 const origin = "http://localhost:3000";
