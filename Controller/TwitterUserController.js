@@ -3,8 +3,8 @@ const passport = require('passport');
 const TwitterStrategy = require('passport-twitter').Strategy;
 
 passport.use(new TwitterStrategy({
-  consumerKey: "8PVbj20skHgmK2gG92OcbgcWk",
-    consumerSecret: "oEPdpgHG2lROSijTSTV7lfy9SuZFdp5SM063EwEL6LwCJcWEYZ",
+  consumerKey: "b9ASBGZmkkvx4hryxmc8PFdvO",
+    consumerSecret: "7zT6icEbm5rC4cxVw8gFmolXUDlyb7AQC1mO2HQ8b6WdEDTAu2",
   callbackURL: '/api/user/auth/twitter/callback',
   scope: ["profile"],
 },
