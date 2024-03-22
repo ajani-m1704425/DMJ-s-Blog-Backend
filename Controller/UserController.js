@@ -47,7 +47,7 @@ const successLogin = async (req, res) => {
 
             const token = createToken(req.user);
             if (Guser) {
-                const origin = "http://localhost:3000";
+                const origin = "https://dmj-s-blog.vercel.app";
                 // Set CORS headers dynamically based on the request's origin
                 res.header('Access-Control-Allow-Origin', origin);
                 // Send a JSON response with the redirect URL
@@ -55,7 +55,7 @@ const successLogin = async (req, res) => {
                 res.redirect(`${origin}?user=${encodeURIComponent(JSON.stringify({Guser,token}))}`);
             }
             if (Tuser) {
-                const origin = "http://localhost:3000";
+                const origin = "https://dmj-s-blog.vercel.app";
                 // Set CORS headers dynamically based on the request's origin
                 res.header('Access-Control-Allow-Origin', origin);
                 // Send a JSON response with the redirect URL
